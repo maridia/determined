@@ -73,15 +73,17 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
     title={p.title || `Trial ${trial.id} Card`}
   >
     <div className={css.body}>
-      <p>stats</p>
-      <p>experiment launched {experiment.trials.length} trials</p>
+      <div>
+        <p>stats</p>
+        <p>experiment launched {experiment.trials.length} trials</p>
 
-      <div className={css.duration}>
-        <h5>Durations</h5>
-        <div>Training: {shortEnglishHumannizer(durations.train)}</div>
-        <div>Checkpointing: {shortEnglishHumannizer(durations.checkpoint)}</div>
-        <div>Validating: {shortEnglishHumannizer(durations.validation)}</div>
-        {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}
+        <div className={css.duration}>
+          <h5>Durations</h5>
+          <div>Training: {shortEnglishHumannizer(durations.train)}</div>
+          <div>Checkpointing: {shortEnglishHumannizer(durations.checkpoint)}</div>
+          <div>Validating: {shortEnglishHumannizer(durations.validation)}</div>
+          {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}
+        </div>
       </div>
 
       {p.configPath &&
