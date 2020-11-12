@@ -147,8 +147,8 @@ const Report: React.FC = () => {
         }} />
 
         <TrialCard
-          experiment={expDetails[targetExps[0]]}
-          trial={trialDetails[targetTrials[0]]}
+          experiment={expDetails[3]}
+          trial={trialDetails[3]}
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
