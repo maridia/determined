@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import { Button, Col, Row, Space, Table, Tooltip } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 import Message, { MessageType } from 'components/Message';
 import Page from 'components/Page';
+import Spinner from 'components/Spinner';
+import TaskCard from 'components/TaskCard';
 import { getExperimentDetails } from 'services/api';
 import { ExperimentDetails } from 'types';
+import { experimentDetailsToTask, experimentToTask } from 'utils/types';
 
 import css from './Report.module.scss';
 
@@ -27,14 +30,20 @@ const Report: React.FC = () => {
   }, [ setExpDetails ]);
 
   const msg = 'set the remote server: `dev.setServerAddress(ADDRESS)`';
+  const exp1 = expDetails[targetExps[0]];
+
+  if (!exp1) return <Spinner />;
+
   return (
     <Page
       className={css.base}
-      title="Training CycleGAN using Determined"
-      subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}>
+      subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}
+      title="Training CycleGAN using Determined">
       <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
       <p>The first step is to try to optimize for the maximum batch size, which I did in this experiment:</p>
-      <p>{expDetails[targetExps[0]]?.state}</p>
+      <p>{exp1?.state}</p>
+      <TaskCard {...experimentDetailsToTask(exp1)}
+      />
       <p>second exp startTime {expDetails[targetExps[1]]?.startTime}</p>
       <Message message={msg} title="msg" type={MessageType.Empty} />
     </Page>

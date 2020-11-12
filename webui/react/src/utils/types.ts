@@ -1,5 +1,5 @@
 import {
-  AnyTask, Checkpoint, Command, CommandState, CommandType, ExperimentHyperParams,
+  AnyTask, Checkpoint, Command, CommandState, CommandType, ExperimentDetails, ExperimentHyperParams,
   ExperimentItem, RawJson, RecentCommandTask, RecentExperimentTask, RecentTask, RunState, Step,
   TBSource, TBSourceType,
 } from 'types';
@@ -42,6 +42,24 @@ export const experimentToTask = (experiment: ExperimentItem): RecentExperimentTa
     startTime: experiment.startTime,
     state: experiment.state,
     url: experiment.url,
+    username: experiment.username,
+  };
+  return task;
+};
+
+export const experimentDetailsToTask = (experiment: ExperimentDetails): RecentExperimentTask => {
+  const lastEvent = experiment.endTime ?
+    { date: experiment.endTime, name: 'finished' } :
+    { date: experiment.startTime, name: 'requested' };
+  const task: RecentTask = {
+    archived: experiment.archived,
+    id: `${experiment.id}`,
+    lastEvent,
+    name: experiment.config.description,
+    progress: experiment.progress,
+    startTime: experiment.startTime,
+    state: experiment.state,
+    url: `/experiments/${experiment.id}`,
     username: experiment.username,
   };
   return task;
