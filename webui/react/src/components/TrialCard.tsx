@@ -89,7 +89,9 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
       </div>
       }
 
-      <TrialChart steps={trial.steps} {...p.trialChartProps} />
+      <div className={css.chart}>
+        <TrialChart steps={trial.steps} {...p.trialChartProps} />
+      </div>
     </div>
 
     {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}

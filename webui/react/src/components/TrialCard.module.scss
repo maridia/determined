@@ -4,8 +4,16 @@
 }
 
 .body {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  align-content: s;
-  justify-content: space-between;
+  // justify-content: stretch;
+
+  & > div:not(:last-child) {
+    margin-right: 2rem;
+  }
+
+  .chart {
+    flex: 1;
+  }
 }
