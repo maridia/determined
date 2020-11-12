@@ -121,7 +121,7 @@ const Report: React.FC = () => {
       {/* next comp/image */}
 
       <div className={css.readme}>
-        <p>Setting the global batch size to 256 and aggregation_frequency to 1:</p>
+        <p>Setting the global batch size to 64 and aggregation_frequency to 2:</p>
         <TrialCard
           configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
           experiment={expDetails[targetExps[5]]}
