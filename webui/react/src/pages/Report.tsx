@@ -44,8 +44,42 @@ const Report: React.FC = () => {
       <p>{exp1?.state}</p>
       <TaskCard {...experimentDetailsToTask(exp1)}
       />
-      <p>second exp startTime {expDetails[targetExps[1]]?.startTime}</p>
-      <Message message={msg} title="msg" type={MessageType.Empty} />
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>next message</p>
+      </div>
+      {/* next comp/image */}
+
     </Page>
   );
 };
