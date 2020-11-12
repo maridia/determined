@@ -146,6 +146,24 @@ const Report: React.FC = () => {
       </div>
       {/* next comp/image */}
 
+      <div className={css.readme}>
+        <p>After getting the scaling efficiency of throughput on the above settings,
+          I start to study the scaling efficiency of loss.
+        </p>
+        <p>I decided to train on experiment 2 and experiment 3 for a whole 2000 epochs.</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>Comparison on the metrics:</p>
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>Comparison on the metrics:</p>
+      </div>
+      {/* next comp/image */}
+
     </Page>
   );
 };
