@@ -84,6 +84,7 @@ const Report: React.FC = () => {
       <div className={css.readme}>
         <p>To locate the issue, I set aggregation_frequency to be a very large number to check if it is because of network communication.</p>
         <TrialCard
+          configPath={[['optimizations', 'aggregation_frequency']]}
           experiment={expDetails[targetExps[2]]}
           trial={trialDetails[targetTrials[2]]}
           trialChartProps={{
