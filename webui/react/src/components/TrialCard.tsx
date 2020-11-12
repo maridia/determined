@@ -21,10 +21,6 @@ interface Props {
   experiment: ExperimentDetails;
 }
 
-const getPathListWithKey = (data: RawJson, path: string[]) => {
-  return path.length ? { [path[path.length-1]]: getPathList(data, path) } : data;
-};
-
 const configRenderer = (conf: RawJson, path?: string[][]) => {
   if (path === undefined) return;
   let newConf: RawJson;
