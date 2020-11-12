@@ -6,7 +6,7 @@ import MetricSelectFilter from 'components/MetricSelectFilter';
 import useStorage from 'hooks/useStorage';
 import { MetricName, MetricType, Step } from 'types';
 
-interface Props {
+export interface Props {
   id?: string;
   metricNames: MetricName[];
   defaultMetricNames: MetricName[];

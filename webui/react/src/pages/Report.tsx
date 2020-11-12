@@ -8,14 +8,14 @@ import Spinner from 'components/Spinner';
 import TaskCard from 'components/TaskCard';
 import TrialCard from 'components/TrialCard';
 import { getExperimentDetails } from 'services/api';
-import { ExperimentDetails, TrialDetails } from 'types';
+import { ExperimentDetails, MetricType, TrialDetails } from 'types';
 import { experimentDetailsToTask } from 'utils/types';
 
 import css from './Report.module.scss';
 
 type Data = Record<number, ExperimentDetails>;
 
-const targetExps = [ 1,2 ];
+const targetExps = [ 2 ];
 
 const Report: React.FC = () => {
   const [ expDetails, setExpDetails ] = useState<Data>({});
@@ -38,10 +38,10 @@ const Report: React.FC = () => {
   return (
     <Page
       className={css.base}
-      subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}
-      title="Training CycleGAN using Determined"
+      options={<span>Powered by <Logo type={LogoTypes.OnLightHorizontal} /></span>}
       showDivider
-      options={<span>Powered by <Logo type={LogoTypes.OnLightHorizontal}/></span>}>
+      subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}
+      title="Training CycleGAN using Determined">
       <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
       <p>The first step is to try to optimize for the maximum batch size, which I did in this experiment:</p>
       <p>{exp1?.state}</p>
@@ -51,7 +51,14 @@ const Report: React.FC = () => {
       <div className={css.readme}>
         <p>next message</p>
       </div>
-      <TrialCard configPath={[ 'hyperparameters' ]} experiment={exp1} trial={{ id: 1 } as TrialDetails} />
+      <TrialCard
+        configPath={[ 'hyperparameters' ]}
+        experiment={exp1}
+        trial={{ id: 2 } as TrialDetails}
+        trialChartProps={{
+          defaultMetricNames: [ { name: 'loss_real_D', type: MetricType.Validation } ],
+          metricNames: [ { name: 'loss_real_D', type: MetricType.Validation } ],
+        }} />
 
       <div className={css.readme}>
         <p>next message</p>
