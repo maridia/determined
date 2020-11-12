@@ -1,6 +1,8 @@
 import { Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 
+import Logo, { LogoTypes } from 'components/Logo';
+import Message, { MessageType } from 'components/Message';
 import Page from 'components/Page';
 import Spinner from 'components/Spinner';
 import TaskCard from 'components/TaskCard';
@@ -37,7 +39,9 @@ const Report: React.FC = () => {
     <Page
       className={css.base}
       subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}
-      title="Training CycleGAN using Determined">
+      title="Training CycleGAN using Determined"
+      showDivider
+      options={<span>Powered by <Logo type={LogoTypes.OnLightHorizontal}/></span>}>
       <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
       <p>The first step is to try to optimize for the maximum batch size, which I did in this experiment:</p>
       <p>{exp1?.state}</p>
