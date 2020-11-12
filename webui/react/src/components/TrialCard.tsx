@@ -54,20 +54,23 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
       </Breadcrumb.Item>
     </Breadcrumb>
 
-    {configRenderer(experiment.configRaw, p.configPath)}
-    <TrialChart steps={trial.steps} {...p.trialChartProps} />
-    <p>stats</p>
-    <p>experiment launched {experiment.trials.length} trials</p>
+    <div>
+      <h5>Config</h5>
+      {configRenderer(experiment.configRaw, p.configPath)}
+    </div>
 
-    {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}
-
-    <p>Durations</p>
     <div className={css.duration}>
+      <h5>Durations</h5>
       <div>Training: {shortEnglishHumannizer(durations.train)}</div>
       <div>Checkpointing: {shortEnglishHumannizer(durations.checkpoint)}</div>
       <div>Validating: {shortEnglishHumannizer(durations.validation)}</div>
-    </div>,
+    </div>
 
+    <TrialChart steps={trial.steps} {...p.trialChartProps} />
+    <h5>Stats</h5>
+    <p>experiment launched {experiment.trials.length} trials</p>
+
+    {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}
   </Section>;
 };
 
