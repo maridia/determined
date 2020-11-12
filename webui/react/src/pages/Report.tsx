@@ -59,7 +59,7 @@ const Report: React.FC = () => {
         <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
         <p>First, I trained the experiment with one GPU to sanity check the experiment runs well.</p>
         <TrialCard
-          configPath={[ 'searcher' ]}
+          configPath={[ [ 'searcher' ] ]}
           experiment={exp0}
           trial={trial0}
           trialChartProps={{

@@ -16,15 +16,28 @@ import css from './TrialCard.module.scss';
 interface Props {
   title?: string;
   trial: TrialDetails;
-  configPath?: string[]; // path to the intereseting part of config
+  configPath?: string[][]; // path to the intereseting part of config
   trialChartProps: TrialChartProps;
   experiment: ExperimentDetails;
 }
 
-const configRenderer = (conf: RawJson, path?: string[]) => {
-  // TODO maybe use monaco editor in readonly mode
+const getPathListWithKey = (data: RawJson, path: string[]) => {
+  return path.length ? { [path[path.length-1]]: getPathList(data, path) } : data;
+};
+
+const configRenderer = (conf: RawJson, path?: string[][]) => {
   if (path === undefined) return;
-  const subConf = path.length ? { [path[path.length-1]]: getPathList(conf, path) } : conf;
+  let newConf: RawJson;
+  if (path.length) {
+    newConf = path.map(pathList => {
+      const subConf = pathList.length ? { [pathList[pathList.length-1]]: getPathList(conf, pathList) } : conf;
+      return subConf;
+    })
+      .reduce((acc, cur) => ({ ...acc, ...cur }), {});
+  } else {
+    newConf = conf;
+  }
+
   const confA = <MonacoEditor
     height="20rem"
     language="json"
@@ -37,8 +50,8 @@ const configRenderer = (conf: RawJson, path?: string[]) => {
       selectOnLineNumbers: true,
     }}
     theme="vs-light"
-    value={JSON.stringify(subConf, null, 2)} />;
-  const confB = <pre>{JSON.stringify(subConf, null, 2)}</pre>;
+    value={JSON.stringify(newConf, null, 2)} />;
+  const confB = <pre>{JSON.stringify(newConf, null, 2)}</pre>;
   return confB;
 };
 
