@@ -56,6 +56,7 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
 
   return <Section
     bodyBorder
+    hideTitle
     options={
       <Breadcrumb>
         <Breadcrumb.Item>
