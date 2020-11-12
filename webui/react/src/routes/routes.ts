@@ -60,6 +60,12 @@ const routes: RouteConfig[] = [
     title: 'Cluster',
   },
   {
+    id: 'report',
+    needAuth: true,
+    path: '/report',
+    title: 'Report',
+  },
+  {
     icon: 'logs',
     id: 'masterLogs',
     needAuth: true,

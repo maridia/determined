@@ -5,6 +5,7 @@ import Dashboard from 'pages/Dashboard';
 import ExperimentDetails from 'pages/ExperimentDetails';
 import ExperimentList from 'pages/ExperimentList';
 import MasterLogs from 'pages/MasterLogs';
+import Report from 'pages/Report';
 import SignIn from 'pages/SignIn';
 import SignOut from 'pages/SignOut';
 import TaskList from 'pages/TaskList';
@@ -21,6 +22,7 @@ const routeComponentMap: Record<string, FC> = {
   experimentDetails: ExperimentDetails,
   experimentList: ExperimentList,
   masterLogs: MasterLogs,
+  report: Report,
   signIn: SignIn,
   signOut: SignOut,
   taskList: TaskList,
