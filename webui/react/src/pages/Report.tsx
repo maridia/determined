@@ -47,7 +47,7 @@ const Report: React.FC = () => {
       <div className={css.readme}>
         <p>next message</p>
       </div>
-      <TrialCard experiment={exp1} trial={{ id: 1 } as TrialDetails} />
+      <TrialCard configPath={[ 'hyperparameters' ]} experiment={exp1} trial={{ id: 1 } as TrialDetails} />
 
       <div className={css.readme}>
         <p>next message</p>
