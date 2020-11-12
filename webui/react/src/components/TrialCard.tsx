@@ -84,7 +84,6 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
       {p.configPath &&
       <div>
         <h5>Config</h5>
-        <p>some text about this</p>
         {configRenderer(experiment.configRaw, p.configPath)}
       </div>
       }
