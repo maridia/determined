@@ -65,7 +65,7 @@ const Report: React.FC = () => {
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
       </div>
 
       <div className={css.readme}>
@@ -76,7 +76,7 @@ const Report: React.FC = () => {
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
         <p>The training throughput varies from 71 to 164 records per second, which is very unstable.</p>
       </div>
       {/* next comp/image */}
@@ -89,7 +89,7 @@ const Report: React.FC = () => {
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
         <p>The throughput is much more stable this way. Now, I can change the other fields to see the effect on throughput.</p>
       </div>
       {/* next comp/image */}
@@ -97,52 +97,78 @@ const Report: React.FC = () => {
       <div className={css.readme}>
         <p>Setting the global batch size to 256 and aggregation_frequency to 1:</p>
         <TrialCard
-          configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
           experiment={expDetails[targetExps[3]]}
           trial={trialDetails[targetTrials[3]]}
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
       </div>
       {/* next comp/image */}
 
       <div className={css.readme}>
         <p>Setting the global batch size to 128 and aggregation_frequency to 1:</p>
         <TrialCard
-          configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
           experiment={expDetails[targetExps[4]]}
           trial={trialDetails[targetTrials[4]]}
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
       </div>
       {/* next comp/image */}
 
       <div className={css.readme}>
         <p>Setting the global batch size to 64 and aggregation_frequency to 2:</p>
         <TrialCard
-          configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
           experiment={expDetails[targetExps[5]]}
           trial={trialDetails[targetTrials[5]]}
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>Setting the global batch size to 128 and aggregation_frequency to 1:</p>
+        <TrialCard
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
+          experiment={expDetails[targetExps[6]]}
+          trial={trialDetails[targetTrials[6]]}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+          }} />
       </div>
       {/* next comp/image */}
 
       <div className={css.readme}>
         <p>Setting the global batch size to 64 and aggregation_frequency to 2:</p>
         <TrialCard
-          configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
-          experiment={expDetails[targetExps[6]]}
-          trial={trialDetails[targetTrials[6]]}
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
+          experiment={expDetails[targetExps[7]]}
+          trial={trialDetails[targetTrials[7]]}
           trialChartProps={{
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+          }} />
+      </div>
+      {/* next comp/image */}
+
+      <div className={css.readme}>
+        <p>Setting the global batch size to 64 and aggregation_frequency to 4:</p>
+        <TrialCard
+          configPath={[ [ 'hyperparameters', 'global_batch_size' ], [ 'optimizations', 'aggregation_frequency' ] ]}
+          experiment={expDetails[targetExps[8]]}
+          trial={trialDetails[targetTrials[8]]}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+          }} />
       </div>
       {/* next comp/image */}
 
