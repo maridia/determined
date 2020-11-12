@@ -17,7 +17,7 @@ interface Props {
   title?: string;
   trial: TrialDetails;
   configPath?: string[][]; // path to the intereseting part of config
-  trialChartProps: TrialChartProps;
+  trialChartProps?: TrialChartProps;
   experiment: ExperimentDetails;
 }
 
@@ -84,9 +84,11 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
       </div>
       }
 
-      <div className={css.chart}>
-        <TrialChart steps={trial.steps} {...p.trialChartProps} />
-      </div>
+      {p.trialChartProps &&
+        <div className={css.chart}>
+          <TrialChart steps={trial.steps} {...p.trialChartProps} />
+        </div>
+      }
     </div>
 
     {/* <TrialInfoBox experiment={experiment} trial={trial} /> */}

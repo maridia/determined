@@ -100,10 +100,7 @@ const Report: React.FC = () => {
           configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
           experiment={expDetails[targetExps[3]]}
           trial={trialDetails[targetTrials[3]]}
-          trialChartProps={{
-            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+        />
       </div>
       {/* next comp/image */}
 
@@ -113,10 +110,7 @@ const Report: React.FC = () => {
           configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
           experiment={expDetails[targetExps[4]]}
           trial={trialDetails[targetTrials[4]]}
-          trialChartProps={{
-            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+        />
       </div>
       {/* next comp/image */}
 
@@ -126,10 +120,7 @@ const Report: React.FC = () => {
           configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
           experiment={expDetails[targetExps[5]]}
           trial={trialDetails[targetTrials[5]]}
-          trialChartProps={{
-            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+        />
       </div>
       {/* next comp/image */}
 
@@ -139,10 +130,7 @@ const Report: React.FC = () => {
           configPath={[ ['hyperparameters', 'global_batch_size'], ['optimizations', 'aggregation_frequency'] ]}
           experiment={expDetails[targetExps[6]]}
           trial={trialDetails[targetTrials[6]]}
-          trialChartProps={{
-            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
-        }} />
+        />
       </div>
       {/* next comp/image */}
 
