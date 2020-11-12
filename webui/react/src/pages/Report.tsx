@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Col, Row, Space, Table, Tooltip } from 'antd';
 
 import Message, { MessageType } from 'components/Message';
 import Page from 'components/Page';
@@ -27,9 +28,13 @@ const Report: React.FC = () => {
 
   const msg = 'set the remote server: `dev.setServerAddress(ADDRESS)`';
   return (
-    <Page className={css.base} title="Report">
-      <p>Hello</p>
-      <p>first exp state: {expDetails[targetExps[0]]?.state}</p>
+    <Page
+      className={css.base}
+      title="Training CycleGAN using Determined"
+      subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}>
+      <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
+      <p>The first step is to try to optimize for the maximum batch size, which I did in this experiment:</p>
+      <p>{expDetails[targetExps[0]]?.state}</p>
       <p>second exp startTime {expDetails[targetExps[1]]?.startTime}</p>
       <Message message={msg} title="msg" type={MessageType.Empty} />
     </Page>
