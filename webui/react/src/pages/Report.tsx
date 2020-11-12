@@ -1,13 +1,13 @@
-import { Button, Col, Row, Space, Table, Tooltip } from 'antd';
+import { Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import Message, { MessageType } from 'components/Message';
 import Page from 'components/Page';
 import Spinner from 'components/Spinner';
 import TaskCard from 'components/TaskCard';
+import TrialCard from 'components/TrialCard';
 import { getExperimentDetails } from 'services/api';
-import { ExperimentDetails } from 'types';
-import { experimentDetailsToTask, experimentToTask } from 'utils/types';
+import { ExperimentDetails, TrialDetails } from 'types';
+import { experimentDetailsToTask } from 'utils/types';
 
 import css from './Report.module.scss';
 
@@ -29,7 +29,6 @@ const Report: React.FC = () => {
       }).catch(console.error);
   }, [ setExpDetails ]);
 
-  const msg = 'set the remote server: `dev.setServerAddress(ADDRESS)`';
   const exp1 = expDetails[targetExps[0]];
 
   if (!exp1) return <Spinner />;
@@ -48,7 +47,7 @@ const Report: React.FC = () => {
       <div className={css.readme}>
         <p>next message</p>
       </div>
-      {/* next comp/image */}
+      <TrialCard experiment={exp1} trial={{ id: 1 } as TrialDetails} />
 
       <div className={css.readme}>
         <p>next message</p>
