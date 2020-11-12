@@ -66,7 +66,7 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
         </Breadcrumb.Item>
       </Breadcrumb>
     }
-    title={p.title || `Trial ${trial.id} Card`}
+    title={p.title || ''}
   >
     <div className={css.body}>
       <div className={css.duration}>
