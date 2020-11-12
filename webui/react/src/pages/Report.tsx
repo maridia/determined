@@ -135,11 +135,8 @@ const Report: React.FC = () => {
       {/* next comp/image */}
 
       <div className={css.readme}>
-        <p>After getting the scaling efficiency of throughput on the above settings,
-          I start to study the scaling efficiency of loss.
-        </p>
-        <p>I decided to train on experiment 2 and experiment 3 for a whole 2000 epochs.</p>
-
+        <p>After getting the scaling efficiency of throughput on the above settings, I start to study the scaling efficiency of loss.</p>
+        <p>I decided to train on experiment 2 and experiment 3 for a whole 2000 epochs. You can see the results below:</p>
         <TrialCard
           experiment={expDetails[targetExps[1]]}
           trial={trialDetails[targetTrials[1]]}
