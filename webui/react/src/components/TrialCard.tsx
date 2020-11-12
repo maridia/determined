@@ -1,5 +1,6 @@
 import { Breadcrumb } from 'antd';
 import React, { useMemo } from 'react';
+import MonacoEditor from 'react-monaco-editor';
 
 import Link from 'components/Link';
 import Section from 'components/Section';
@@ -22,8 +23,22 @@ interface Props {
 
 const configRenderer = (conf: RawJson, path?: string[]) => {
   // TODO maybe use monaco editor in readonly mode
-  const subConf = path && path.length ? getPathList(conf, path) : conf;
-  return <pre>{JSON.stringify(subConf, null, 2)}</pre>;
+  if (path === undefined) return;
+  const subConf = path.length ? { [path[path.length-1]]: getPathList(conf, path) } : conf;
+  return <MonacoEditor
+    height="20rem"
+    language="json"
+    options={{
+      lineNumbers: 'off',
+      minimap: { enabled: false },
+      occurrencesHighlight: false,
+      readOnly: true,
+      scrollBeyondLastLine: false,
+      selectOnLineNumbers: true,
+    }}
+    theme="vs-light"
+    value={JSON.stringify(subConf, null, 2)} />;
+  // return <pre>{JSON.stringify(subConf, null, 2)}</pre>;
 };
 
 const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
@@ -39,7 +54,6 @@ const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
       </Breadcrumb.Item>
     </Breadcrumb>
 
-    <p>config</p>
     {configRenderer(experiment.configRaw, p.configPath)}
     <TrialChart steps={trial.steps} {...p.trialChartProps} />
     <p>stats</p>
