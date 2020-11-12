@@ -13,6 +13,7 @@ import { trialDurations } from 'utils/types';
 import css from './TrialCard.module.scss';
 
 interface Props {
+  title?: string;
   trial: TrialDetails;
   configPath?: string[]; // path to the intereseting part of config
   trialChartProps: TrialChartProps;
@@ -28,7 +29,7 @@ const configRenderer = (conf: RawJson, path?: string[]) => {
 const TrialCard: React.FC<Props> = ({ trial, experiment, ...p }: Props) => {
   const durations = useMemo(() => trialDurations(trial.steps), [ trial.steps ]);
 
-  return <Section bodyBorder title={`Trial ${trial.id} Card`}>
+  return <Section bodyBorder title={p.title || `Trial ${trial.id} Card`}>
     <Breadcrumb>
       <Breadcrumb.Item>
         <Link path={`/experiments/${experiment.id}`}>Experiment {experiment.id}</Link>
