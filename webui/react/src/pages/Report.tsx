@@ -15,8 +15,8 @@ import css from './Report.module.scss';
 type Data = Record<number, ExperimentDetails>;
 type TrialData = Record<number, TrialDetails>;
 
-const targetExps = [ 10, 2 ];
-const targetTrials = [ 10 ];
+const targetExps = [ 3, 2 ];
+const targetTrials = [ 3, 2 ];
 
 const Report: React.FC = () => {
   const [ expDetails, setExpDetails ] = useState<Data>({});
@@ -55,26 +55,28 @@ const Report: React.FC = () => {
       showDivider
       subTitle={<Space align="center" size="small">by Shiyuan Zhu</Space>}
       title="Training CycleGAN using Determined">
-      <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
-      <p>The first step is to try to optimize for the maximum batch size, which I did in this experiment:</p>
-      <p>{exp0?.state}</p>
-      <TaskCard {...experimentDetailsToTask(exp0)}
-      />
-
       <div className={css.readme}>
-        <p>next message</p>
-      </div>
-      <TrialCard
-        configPath={[ 'searcher' ]}
-        experiment={exp0}
-        trial={trial0}
-        trialChartProps={{
-          defaultMetricNames: [ { name: 'validation_error', type: MetricType.Validation } ],
-          metricNames: [ { name: 'validation_error', type: MetricType.Validation } ],
+        <p>CycleGAN is a technique that can be used to do image-to-image translation. In this report, I've outlined how I trained CycleGAN using Determined.</p>
+        <p>First, I trained the experiment with one GPU to sanity check the experiment runs well.</p>
+        <TrialCard
+          configPath={[ 'searcher' ]}
+          experiment={exp0}
+          trial={trial0}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
         }} />
+      </div>
 
       <div className={css.readme}>
-        <p>next message</p>
+        <p>Then, I used distributed training on 64 GPUs:</p>
+        <TrialCard
+          experiment={expDetails[targetExps[1]]}
+          trial={trialDetails[targetTrials[1]]}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+        }} />
       </div>
       {/* next comp/image */}
 
