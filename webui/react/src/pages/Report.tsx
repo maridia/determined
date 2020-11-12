@@ -139,16 +139,22 @@ const Report: React.FC = () => {
           I start to study the scaling efficiency of loss.
         </p>
         <p>I decided to train on experiment 2 and experiment 3 for a whole 2000 epochs.</p>
-      </div>
-      {/* next comp/image */}
 
-      <div className={css.readme}>
-        <p>Comparison on the metrics:</p>
-      </div>
-      {/* next comp/image */}
+        <TrialCard
+          experiment={expDetails[targetExps[1]]}
+          trial={trialDetails[targetTrials[1]]}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+        }} />
 
-      <div className={css.readme}>
-        <p>Comparison on the metrics:</p>
+        <TrialCard
+          experiment={expDetails[targetExps[0]]}
+          trial={trialDetails[targetTrials[0]]}
+          trialChartProps={{
+            defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+            metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
+        }} />
       </div>
       {/* next comp/image */}
 
