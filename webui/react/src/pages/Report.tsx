@@ -77,11 +77,11 @@ const Report: React.FC = () => {
             defaultMetricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
             metricNames: [ { name: 'loss_cycle', type: MetricType.Training } ],
         }} />
+        <p>You can see batches training duration </p>
       </div>
       {/* next comp/image */}
 
       <div className={css.readme}>
-        <p>next message</p>
       </div>
       {/* next comp/image */}
 
