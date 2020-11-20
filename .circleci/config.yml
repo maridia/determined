@@ -119,14 +119,14 @@ commands:
       - install-protoc
       - restore_cache:
           keys:
-            - det-go-deps-v1dev7-{{ checksum  "master/go.sum" }}-{{ checksum  "agent/go.sum" }}-{{ checksum  "proto/go.sum" }}
+            - det-go-deps-v1dev8-{{ checksum  "master/go.sum" }}-{{ checksum  "agent/go.sum" }}-{{ checksum  "proto/go.sum" }}
       - run: make -C proto get-deps
       - run: make -C master get-deps
       - run: make -C agent get-deps
       - save_cache:
-          key: det-go-deps-v1dev7-{{ checksum  "master/go.sum" }}-{{ checksum  "agent/go.sum" }}-{{ checksum  "proto/go.sum" }}
+          key: det-go-deps-v1dev8-{{ checksum  "master/go.sum" }}-{{ checksum  "agent/go.sum" }}-{{ checksum  "proto/go.sum" }}
           paths:
-            - "/home/circleci/go/pkg/mod/"
+            - "/home/circleci/go/"
   react-get-deps:
     steps:
       - attach_workspace:
