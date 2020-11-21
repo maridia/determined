@@ -1,9 +1,9 @@
 FROM debian:10.3-slim
 MAINTAINER Determined AI <hello@determined.ai>
 
-RUN apt-get update -yq \
-    && apt-get install -y ca-certificates perl-base \
-    && rm -rf /var/lib/apt/lists/*
+RUN bash -c 'time apt-get update -yq \
+    && time apt-get install -y ca-certificates perl-base \
+    && rm -rf /var/lib/apt/lists/*'
 
 COPY packaging/master.yaml /etc/determined/master.yaml
 COPY packaging/LICENSE /usr/share/doc/determined-master/copyright

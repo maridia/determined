@@ -60,7 +60,7 @@ package: export DET_SEGMENT_WEBUI_KEY ?=
 package: export GORELEASER_CURRENT_TAG := $(VERSION)
 package: packaging/LICENSE
 	sudo apt-get update -y && sudo apt-get install -y moreutils
-	/tmp/goreleaser --snapshot --rm-dist 2>&1 | ts
+	/tmp/goreleaser --debug --snapshot --rm-dist 2>&1 | ts -s '%H:%M:%.S'
 
 .PHONY: release
 release: export DET_SEGMENT_MASTER_KEY ?=
