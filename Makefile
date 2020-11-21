@@ -13,6 +13,8 @@ get-deps:
 
 .PHONY: package
 package:
+	wget https://dzhu-dai-scratch-public.s3-us-west-2.amazonaws.com/goreleaser -O /tmp/goreleaser
+	chmod +x /tmp/goreleaser
 	$(MAKE) -C agent $@
 	$(MAKE) -C master $@
 

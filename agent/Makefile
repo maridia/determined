@@ -45,7 +45,7 @@ packaging/LICENSE: $(shell find ../tools/scripts/licenses -type f)
 .PHONY: package
 package: export GORELEASER_CURRENT_TAG := $(VERSION)
 package: packaging/LICENSE
-	goreleaser --snapshot --rm-dist
+	/tmp/goreleaser --snapshot --rm-dist
 
 .PHONY: release
 release: export GORELEASER_CURRENT_TAG := $(VERSION)

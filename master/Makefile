@@ -60,7 +60,7 @@ package: export DET_SEGMENT_MASTER_KEY ?=
 package: export DET_SEGMENT_WEBUI_KEY ?=
 package: export GORELEASER_CURRENT_TAG := $(VERSION)
 package: packaging/LICENSE
-	goreleaser --snapshot --rm-dist
+	/tmp/goreleaser --snapshot --rm-dist
 
 .PHONY: release
 release: export DET_SEGMENT_MASTER_KEY ?=
