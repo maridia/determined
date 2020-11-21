@@ -47,7 +47,6 @@ pre-package:
 	mkdir -p build/wheels/
 	cp -r ../proto/build/swagger build/swagger
 	cp -r ../docs/site/html/* build/webui/docs
-	cp -r ../webui/react/build/* build/webui/react
 	cp ../common/dist/*.whl build/wheels/
 	cp ../cli/dist/*.whl build/wheels/
 	cp ../harness/dist/*.whl build/wheels/
@@ -60,7 +59,8 @@ package: export DET_SEGMENT_MASTER_KEY ?=
 package: export DET_SEGMENT_WEBUI_KEY ?=
 package: export GORELEASER_CURRENT_TAG := $(VERSION)
 package: packaging/LICENSE
-	/tmp/goreleaser --snapshot --rm-dist
+	sudo apt-get update -y && sudo apt-get install -y moreutils
+	/tmp/goreleaser --snapshot --rm-dist 2>&1 | ts
 
 .PHONY: release
 release: export DET_SEGMENT_MASTER_KEY ?=

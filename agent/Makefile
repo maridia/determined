@@ -45,7 +45,8 @@ packaging/LICENSE: $(shell find ../tools/scripts/licenses -type f)
 .PHONY: package
 package: export GORELEASER_CURRENT_TAG := $(VERSION)
 package: packaging/LICENSE
-	/tmp/goreleaser --snapshot --rm-dist
+	sudo apt-get update -y && sudo apt-get install -y moreutils
+	/tmp/goreleaser --snapshot --rm-dist 2>&1 | ts
 
 .PHONY: release
 release: export GORELEASER_CURRENT_TAG := $(VERSION)
