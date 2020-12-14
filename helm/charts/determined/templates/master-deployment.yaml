@@ -33,7 +33,7 @@ spec:
           {{ $tag = .Values.detVersion }}
         {{- end -}}
         image: {{ $image }}:{{ $tag }}
-        imagePullPolicy: "Always"
+        imagePullPolicy: "IfNotPresent"
         volumeMounts:
           - name: master-config
             mountPath: /etc/determined/
