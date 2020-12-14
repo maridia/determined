@@ -513,7 +513,7 @@ def test_k8_sidecars(using_k8s: bool) -> None:
 
 
 @pytest.mark.parallel  # type: ignore
-@pytest.mark.parametrize("tf2", [True, False])  # type: ignore
+@pytest.mark.parametrize("tf2", [True])  # type: ignore
 @pytest.mark.parametrize("aggregation_frequency", [1, 4, 8])  # type: ignore
 @pytest.mark.parametrize("average_aggregated_gradients", [True, False])  # type: ignore
 def test_horovod_optimizer(
