@@ -104,6 +104,13 @@ func TestFluentLoggingElastic(t *testing.T) {
 	assert.NilError(t, err, "failed to retrieve trial logs")
 	assert.Equal(t, len(logs), len(expected), "not enough logs received after one minute")
 	for i, l := range logs {
+		j1, _ := json.MarshalIndent(*l, "", "  ")
+		j2, _ := json.MarshalIndent(expected[i], "", "  ")
+		fmt.Println("================================================================")
+		fmt.Println(string(j1))
+		fmt.Println(string(j2))
+	}
+	for i, l := range logs {
 		assertLogEquals(t, *l, expected[i])
 	}
 }
