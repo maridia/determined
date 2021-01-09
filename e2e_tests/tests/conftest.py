@@ -23,6 +23,7 @@ _INTEG_MARKERS = {
     "cloud",
     "parallel",
     "nightly",
+    "tmp",
 }
 
 

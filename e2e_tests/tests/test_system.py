@@ -322,6 +322,7 @@ def test_labels() -> None:
 
 
 @pytest.mark.e2e_cpu  # type: ignore
+@pytest.mark.tmp  # type: ignore
 def test_end_to_end_adaptive() -> None:
     exp_id = exp.run_basic_test(
         conf.fixtures_path("mnist_pytorch/adaptive_short.yaml"),
@@ -366,6 +367,11 @@ def test_end_to_end_adaptive() -> None:
         len(trials), sort_by="validation_loss", smaller_is_better=False
     )
     top_k_reversed_uuids = [c.uuid for c in top_k_reversed]
+
+    print("top_k", top_k)
+    print("top_k_reversed", top_k_reversed)
+    print("top_k_uuids", top_k_uuids)
+    print("top_k_reversed_uuids", top_k_reversed_uuids)
 
     assert top_k_uuids == top_k_reversed_uuids[::-1]
 
