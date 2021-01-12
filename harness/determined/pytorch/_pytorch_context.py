@@ -57,7 +57,10 @@ class PyTorchTrialContext(det.TrialContext):
         # for broadcasting. Note that broadcast_parameters only accepts state_dict()
         # although its doc says it also accepts named_parameters()
         self._main_model = nn.Module()  # type: nn.Module
-        self._use_amp = False
+        self._scaler = None
+        # We could just use GradScaler(enabled=false) and have fewer conditionals in the code but
+        # that would fail on PyTorch < 1.6.
+        self._use_apex = False
         self._loss_ids = {}  # type: Dict[torch.Tensor, int]
         self._last_backward_batch_idx = None  # type: Optional[int]
         self._current_batch_idx = None  # type: Optional[int]
@@ -131,7 +134,7 @@ class PyTorchTrialContext(det.TrialContext):
         """Returns a wrapped model."""
 
         if self.env.managed_training:
-            check.false(self._use_amp, "Must call wrap_model() before configure_apex_amp.")
+            check.false(self._use_apex, "Must call wrap_model() before configure_apex_amp.")
 
             model = model.to(self.device)
             if not self.hvd_config.use and self.n_gpus > 1:
@@ -182,7 +185,7 @@ class PyTorchTrialContext(det.TrialContext):
 
         """
         if self.env.managed_training:
-            check.false(self._use_amp, "Must call wrap_optimizer() before configure_apex_amp.")
+            check.false(self._use_apex, "Must call wrap_optimizer() before configure_apex_amp.")
             check.gt_eq(
                 backward_passes_per_step,
                 1,
@@ -261,6 +264,30 @@ class PyTorchTrialContext(det.TrialContext):
         """
         return pytorch.to_device(data, self.device, self._to_device_warned_types)
 
+    def wrap_scaler(self, scaler: Any) -> None:
+        """
+        Use PyTorch's native mixed-precision support.
+        """
+
+        check.true(self._scaler == None, "Please only call wrap_scaler once.")
+
+        self._scaler = scaler
+
+        if self.hvd_config.use:
+            check.eq(
+                self.hvd_config.aggregation_frequency,
+                1,
+                "Mixed precision training (AMP) is not supported with "
+                "aggregation frequency > 1.",
+            )
+
+        check.true(
+            torch.cuda.is_available(),
+            "Mixed precision training (AMP) is supported only on GPU slots.",
+        )
+
+        return scaler
+
     def configure_apex_amp(
         self,
         models: Union[torch.nn.Module, List[torch.nn.Module]],
@@ -279,8 +306,9 @@ class PyTorchTrialContext(det.TrialContext):
         max_loss_scale: Optional[float] = 2.0 ** 24,
     ) -> Tuple:
         """
-        Configure automatic mixed precision for your models and optimizers. Note that details
-        for apex.amp are handled automatically within Determined after this call.
+        Configure automatic mixed precision for your models and optimizers using NVIDIA's Apex
+        PyTorch extension. Note that details for apex.amp are handled automatically within
+        Determined after this call.
 
         This function must be called **after** you have finished constructing your models and
         optimizers with :meth:`wrap_model` and :meth:`wrap_optimizer`.
@@ -334,7 +362,7 @@ class PyTorchTrialContext(det.TrialContext):
         if not self.env.managed_training:
             return models, optimizers
 
-        check.false(self._use_amp, "Please only call configure_apex_amp once.")
+        check.false(self._use_apex, "Please only call configure_apex_amp once.")
         if self.hvd_config.use:
             check.eq(
                 num_losses,
@@ -343,7 +371,7 @@ class PyTorchTrialContext(det.TrialContext):
                 "Determined only supports configure_apex_amp with num_losses = 1",
             )
 
-        self._use_amp = True
+        self._use_apex = True
 
         if self.hvd_config.use:
             check.eq(
@@ -428,7 +456,7 @@ class PyTorchTrialContext(det.TrialContext):
                 be constructed, allowing to compute higher order derivative
                 products. Defaults to ``False``.
         """
-        if self._use_amp:
+        if self._use_apex:
             if (
                 self._last_backward_batch_idx is None
                 or self._current_batch_idx is None
@@ -483,6 +511,10 @@ class PyTorchTrialContext(det.TrialContext):
         optimizer: torch.optim.Optimizer,  # type: ignore
         clip_grads: Optional[Callable[[Iterator], None]] = None,
         auto_zero_grads: bool = True,
+        scaler: Optional[Any] = None,
+        # Should be torch.cuda.amp.GradScaler, but:
+        #   * other implementations might be possible
+        #   * requiring this type forces upgrades to PyTorch 1.6+
     ) -> None:
         """
         Perform a single optimization step.
@@ -520,12 +552,12 @@ class PyTorchTrialContext(det.TrialContext):
         if self._should_communicate_and_update():
             # Communication needs to be synchronized so that is completed
             # before we apply gradient clipping and `step()`.
-            if self.hvd_config.use and not self._use_amp:
+            if self.hvd_config.use and not self._use_apex and not self._scaler:
                 optimizer.synchronize()
 
             parameters = (
                 [p for group in optimizer.param_groups for p in group.get("params", [])]
-                if not self._use_amp
+                if not self._use_apex
                 else apex.amp.master_params(optimizer)
             )
 
@@ -537,11 +569,18 @@ class PyTorchTrialContext(det.TrialContext):
             if clip_grads is not None:
                 clip_grads(parameters)
 
-            if self.hvd_config.use:
-                with optimizer.skip_synchronize():
-                    optimizer.step()
+            if self._scaler:
+                if self.hvd_config.use:
+                    with optimizer.skip_synchronize():
+                        self._scaler.step(optimizer)
+                else:
+                    self._scaler.step(optimizer)
             else:
-                optimizer.step()
+                if self.hvd_config.use:
+                    with optimizer.skip_synchronize():
+                        optimizer.step()
+                else:
+                    optimizer.step()
 
             if auto_zero_grads:
                 optimizer.zero_grad()
