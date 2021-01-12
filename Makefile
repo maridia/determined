@@ -21,7 +21,7 @@ build-%:
 	$(MAKE) -C $(subst -,/,$*) build
 .PHONY: build-docs
 build-docs: build-common build-harness build-cli build-deploy build-examples build-helm build-proto
-	$(MAKE) -C docs build
+#	$(MAKE) -C docs build
 .PHONY: build-master
 build-master: build-webui build-docs
 	$(MAKE) -C master build
