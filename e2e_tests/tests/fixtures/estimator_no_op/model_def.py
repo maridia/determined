@@ -22,13 +22,6 @@ def np_rand_reducer(batch_metrics: List):
     return np.random.random()
 
 
-def tf_rand_reducer(batch_metrics: List):
-    if version.parse(tf.__version__) >= version.parse("2.0.0"):
-        return tf.random.get_global_generator().uniform
-    else:
-        return 0.0
-
-
 class ChiefPauseOnTerminateRunHook(estimator.RunHook):
     def __init__(self, ctx):
         self.ctx = ctx
@@ -52,7 +45,6 @@ class NoopEstimator(estimator.EstimatorTrial):
                     for name, metric, reducer in [
                         ("rand_rand", tf.constant([[]]), rand_rand_reducer),
                         ("np_rand", tf.constant([[]]), np_rand_reducer),
-                        ("tf_rand", tf.constant([[]]), tf_rand_reducer),
                     ]
                 }
 
